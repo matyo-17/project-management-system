@@ -23,4 +23,8 @@ class Roles extends Model
             "role_id", "permission_id",
         );
     }
+
+    public static function find_by_name(string $name): ?self {
+        return self::where("name", $name)->first();
+    }
 }

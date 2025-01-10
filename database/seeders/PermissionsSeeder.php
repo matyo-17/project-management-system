@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Lib\SeederHelper;
+use App\Lib\SeedHelper;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +33,6 @@ class PermissionsSeeder extends Seeder
             ["name" => "delete_expense", "group" => "expense"],
         ];
 
-        DB::table('permissions')->insert(SeederHelper::add_timestamps($data));
+        DB::table('permissions')->insert(SeedHelper::add_timestamps($data));
     }
 }

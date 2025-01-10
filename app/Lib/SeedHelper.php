@@ -4,7 +4,7 @@ namespace App\Lib;
 
 use Carbon\Carbon;
 
-class SeederHelper {
+class SeedHelper {
     public static function add_timestamps(array $data) {
         $now = Carbon::now();
         $data_len = count($data);

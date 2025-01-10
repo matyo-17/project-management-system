@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Lib\SeederHelper;
+use App\Lib\SeedHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -44,6 +44,6 @@ class UserSeeder extends Seeder
                 'role_id' => 3,
             ]
         ];
-        DB::table('users')->insert(SeederHelper::add_timestamps($data));
+        DB::table('users')->insert(SeedHelper::add_timestamps($data));
     }
 }

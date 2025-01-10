@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Lib\SeederHelper;
+use App\Lib\SeedHelper;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +19,6 @@ class RolesSeeder extends Seeder
             ['name' => 'admin', 'status' => 1],
             ['name' => 'user', 'status' => 1],
         ];
-        DB::table('roles')->insert(SeederHelper::add_timestamps($data));
+        DB::table('roles')->insert(SeedHelper::add_timestamps($data));
     }
 }

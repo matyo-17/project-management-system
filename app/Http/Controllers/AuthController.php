@@ -28,8 +28,8 @@ class AuthController extends Controller
 
     public function authenticate(Request $request) {
         $validator = Validator::make($request->input(), [
-            "username" => ["required", "min:5"],
-            "password" => ["required", "min:6"],
+            "username" => ["required"],
+            "password" => ["required"],
         ]);
 
         if ($validator->fails()) {
@@ -43,8 +43,7 @@ class AuthController extends Controller
         
         $user = $request->user();
         $user->tokens()->delete();
-        $expires_at = Carbon::now()->addMinutes(15);
-        $access_token = $user->createToken('accessToken', ["*"], $expires_at)->plainTextToken;
+        $access_token = $user->createToken('accessToken', ["*"], Carbon::now()->addMinutes(15))->plainTextToken;
 
         $request->session()->regenerate();
         $request->session()->put('access_token', $access_token);

@@ -22,7 +22,16 @@ class Navbar extends Component
         $menu[] = [
             "name" => "Projects",
             "route" => "projects",
-            "icon" => "fa fa-pen",
+        ];
+
+        $menu[] = [
+            "name" => "Expenses",
+            "route" => "expenses",
+        ];
+
+        $menu[] = [
+            "name" => "Invoices",
+            "route" => "invoices",
         ];
 
         $this->menu = $menu;

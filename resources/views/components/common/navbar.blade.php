@@ -20,7 +20,7 @@
                     <div class="navbar-nav me-auto">
                         @foreach ($menu as $m)
                         <a class="nav-link px-2 {{ $route == $m['route'] ? 'active' : '' }}" href="{{ route($m['route']) }}">
-                            <i class="{{ $m['icon'] }}"></i> &nbsp; {{ $m['name'] }}
+                            {{ $m['name'] }}
                         </a>
                         @endforeach
                     </div>

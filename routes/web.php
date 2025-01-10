@@ -15,4 +15,6 @@ Route::middleware([WebGuard::class])->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
 
     Route::get("/projects", [DashboardController::class, "dashboard"])->name("projects");
+    Route::get("/expenses", [DashboardController::class, "dashboard"])->name("expenses");
+    Route::get("/invoices", [DashboardController::class, "dashboard"])->name("invoices");
 });

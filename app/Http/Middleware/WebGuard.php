@@ -33,7 +33,6 @@ class WebGuard
         $access_token->update(["expires_at" => Carbon::now()->addMinutes(15)]);
 
         Context::add('user', $user);
-
         return $next($request);
     }
 

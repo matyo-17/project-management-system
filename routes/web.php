@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Middleware\WebGuard;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,7 @@ Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign_up");
 Route::middleware([WebGuard::class])->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
 
-    Route::get("/projects", [DashboardController::class, "dashboard"])->name("projects");
+    Route::get("/projects", [ProjectController::class, "projects"])->name("projects");
     Route::get("/expenses", [DashboardController::class, "dashboard"])->name("expenses");
     Route::get("/invoices", [DashboardController::class, "dashboard"])->name("invoices");
 });

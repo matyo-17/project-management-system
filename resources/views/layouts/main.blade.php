@@ -9,7 +9,9 @@
     <x-common.loader />
     <x-common.navbar />
     
-    @yield("content")
+    <div class="container container-lg">
+        @yield("content")
+    </div>
 
     <x-common.scripts />
     @yield("scripts")

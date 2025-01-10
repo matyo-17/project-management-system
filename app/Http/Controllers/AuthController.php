@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthenticateRequest;
 use App\Models\Roles;
 use App\Models\User;
 use Carbon\Carbon;
@@ -26,17 +27,8 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    public function authenticate(Request $request) {
-        $validator = Validator::make($request->input(), [
-            "username" => ["required"],
-            "password" => ["required"],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect("/login")->withErrors("Please fill in username and password.");
-        }
-
-        $credentials = $validator->validated();
+    public function authenticate(AuthenticateRequest $request) {
+        $credentials = $request->validated();
         if (!Auth::attempt($credentials)) {
             return redirect("/login")->withErrors("Wrong username or password.");
         }

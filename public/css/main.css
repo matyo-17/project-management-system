@@ -1,3 +1,8 @@
+body {
+    min-height: 100vh;
+    height: -webkit-fill-available;
+}
+
 #loader {
     position: fixed;
     display: flex;

@@ -7,9 +7,10 @@
 </head>
 <body>
     <x-common.loader />
+    <x-common.navbar />
     
     @yield("content")
-    
+
     <x-common.scripts />
     @yield("scripts")
 </body>

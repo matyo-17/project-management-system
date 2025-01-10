@@ -13,4 +13,6 @@ Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign_up");
 
 Route::middleware([WebGuard::class])->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
+
+    Route::get("/projects", [DashboardController::class, "dashboard"])->name("projects");
 });

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md bg-primary sticky-top mb-3" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <img src="{{ asset('favicon.ico') }}" alt="logo" width="30" height="30" class="d-inline-block align-text-top rounded-5">
             <span class="h5">{{ config('app.name') }}</span>
         </a>
 

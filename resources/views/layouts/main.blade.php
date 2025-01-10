@@ -3,12 +3,14 @@
 <head>
     <x-common.meta />
     <x-common.styles />
-    @yeild("styles")
+    @yield("styles")
 </head>
 <body>
+    <x-common.loader />
+    
     @yield("content")
     
     <x-common.scripts />
-    @yeild("scripts")
+    @yield("scripts")
 </body>
 </html>

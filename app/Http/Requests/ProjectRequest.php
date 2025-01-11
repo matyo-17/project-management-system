@@ -39,7 +39,9 @@ class ProjectRequest extends FormRequest
                 "start_date" => ["required", "date_format:Y-m-d"],
                 "end_date" => ["required", "date_format:Y-m-d"],
                 "budget" => ["required", "decimal:0,2"],
-                "status" => ["required", "in:completed,ongoing,cancelled"],
+                "users" => ["nullable", "array"],
+                "users.*" => ["exists:users,id"],
+                "status" => ["required", "in:completed,ongoing,pending,cancelled"],
             ]);
         }
 

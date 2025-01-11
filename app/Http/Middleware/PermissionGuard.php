@@ -20,6 +20,8 @@ class PermissionGuard
         $user = Context::get("user");
         $clearance = new Clearance($user);
 
+        Context::add("clearance", $clearance);
+        view()->share("clearance", $clearance);
         return $next($request);
     }
 }

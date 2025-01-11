@@ -15,9 +15,9 @@ class RolesSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['name' => 'super', 'status' => 1],
-            ['name' => 'admin', 'status' => 1],
-            ['name' => 'user', 'status' => 1],
+            ['name' => 'super', 'admin' => 1, 'status' => 1],
+            ['name' => 'admin', 'admin' => 1, 'status' => 1],
+            ['name' => 'user', 'admin' => 0, 'status' => 1],
         ];
         DB::table('roles')->insert(SeedHelper::add_timestamps($data));
     }

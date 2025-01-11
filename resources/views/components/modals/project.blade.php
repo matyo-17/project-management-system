@@ -41,8 +41,20 @@
                         <label for="modal-form-status" class="form-label">Status</label>
                         <select id="modal-form-status" class="form-select" name="status" required>
                             <option value="completed">Completed</option>
-                            <option value="ongoing" selected>Ongoing</option>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="pending" selected>Pending</option>
                             <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row row-cols-1">
+                    <div class="col mb-2">
+                        <label for="modal-form-users" class="form-label">Users</label>
+                        <select id="modal-form-users" class="form-select select2" name="users[]" multiple>
+                            @foreach ($users as $u)
+                            <option value="{{ $u['id'] }}">{{ $u['name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

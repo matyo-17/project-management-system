@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Lib\Datatable;
+use App\Lib\Utils;
 use App\Models\Projects;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -16,7 +18,15 @@ class ProjectController extends Controller
     public function create(ProjectRequest $request) {
         $validated = $request->validated();
 
+        $users = $validated["users"] ?? [];
+        unset($validated['users']);
+
+        DB::beginTransaction();
         $project = Projects::create($validated);
+        if ($users) {
+            $project->users()->attach($users);
+        }
+        DB::commit();
         
         $this->result['status'] = 'success';
         return response()->json($this->result);
@@ -34,9 +44,21 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request) {
         $validated = $request->validated();
+        
+        $project = Projects::with("users")->find($validated['id']);
+        
+        $users = $validated["users"] ?? [];
+        unset($validated['users'], $validated['id']);
 
-        $project = Projects::find($validated['id']);
+        $db_users = Utils::array_str_to_int($project->users->pluck("id")->toArray());
+
+        DB::beginTransaction();
         $project->update($validated);
+        if (!Utils::array_equals($users, $db_users)) {
+            $project->users()->detach();
+            $project->users()->attach($users);
+        }
+        DB::commit();
      
         $this->result['status'] = "success";
         return response()->json($this->result);

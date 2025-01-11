@@ -4,7 +4,7 @@
 
 @section("content")
 <div class="card">
-    <x-modals.project />
+    <x-modals.project :$clearance />
 
     <div class="card-body">
         <x-buttons.create-new />
@@ -27,8 +27,28 @@
             { data: 'title', title: 'Title' },
             { data: 'start_date', title: 'Start Date' },
             { data: 'end_date', title: 'End Date' },
-            { data: 'budget', title: 'Budget' },
-            { data: 'status', title: 'Status' },
+            { data: 'budget', title: 'Budget (RM)' },
+            { 
+                data: 'status', title: 'Status',
+                render: function (data, type, row) {
+                    text = data;
+                    switch (data) {
+                        case 'completed':
+                            className = "text-bg-success";
+                            break;
+                        case 'pending':
+                            className = "text-bg-warning";
+                            break;
+                        case 'cancelled':
+                            className = "text-bg-danger";
+                            break;
+                        default:
+                            className = "text-bg-light";
+                    }
+                    return '<span class="badge rounded-pill ' + className + '">'+ text +'</span>';
+                    
+                }
+            },
             {
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {
@@ -47,6 +67,7 @@
     function resetForm() {
         $('#form-modal').get(0).reset();
         $("#form-modal input[type=hidden]").val('');
+        $("#modal-form-users").val('').trigger("change");
     }
 
     function update(id) {
@@ -56,6 +77,10 @@
             type: 'get',
             success: function(res) {
                 data = res.data;
+
+                users = [];
+                data.users.forEach(function (e) { users.push(e.id); });
+
                 $("#modal-form-id").val(id);
                 $("#modal-form-title").val(data.title);
                 $("#modal-form-description").val(data.description);
@@ -63,6 +88,7 @@
                 $("#modal-form-end-date").val(data.end_date);
                 $("#modal-form-budget").val(data.budget);
                 $("#modal-form-status").val(data.status).trigger("change");
+                $("#modal-form-users").val(users).trigger("change");
                 modal.modal("toggle");
             },
             error: function(xhr, ajaxOptions, thrownError) {

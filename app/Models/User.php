@@ -57,8 +57,14 @@ class User extends Authenticatable
 
     public function projects(): BelongsToMany {
         return $this->belongsToMany(
-            Projects::class, UserProjects::class,
+            Projects::class, ProjectUsers::class,
             "user_id", "project_id"
         );
+    }
+
+    public static function normal_users() {
+        return self::whereHas('role', function ($q) {
+            $q->where('admin', 0);
+        })->get();
     }
 }

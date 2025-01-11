@@ -12,6 +12,9 @@
     <x-common.confirm-dialogue />
     
     <div class="container container-lg">
+        <div class="row mb-2">
+            <h3>@yield("title")</h3>
+        </div>
         @yield("content")
     </div>
 

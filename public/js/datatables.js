@@ -25,13 +25,13 @@ function create() {
 }
 
 function editButton(id) {
-    return `<button class="btn btn-primary btn-icon" onclick="update('`+id+`')">
-                <i class="fa fa-pen"></i>
+    return `<button class="btn btn-primary" onclick="update('`+id+`')">
+                <i class="fa fa-pen"></i>&nbsp;Edit
             </button>&nbsp;`;
 }
 
 function deleteButton(id) {
-    return `<button class="btn btn-danger btn-icon" onclick="delete('`+id+`')">
-                <i class="fa fa-trash"></i>
+    return `<button class="btn btn-danger" onclick="softDelete('`+id+`')">
+                <i class="fa fa-trash"></i>&nbsp;Delete
             </button>&nbsp;`
 }

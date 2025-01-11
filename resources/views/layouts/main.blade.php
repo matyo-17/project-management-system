@@ -7,7 +7,9 @@
 </head>
 <body>
     <x-common.loader />
+    <x-common.toaster />
     <x-common.navbar />
+    <x-common.confirm-dialogue />
     
     <div class="container container-lg">
         @yield("content")

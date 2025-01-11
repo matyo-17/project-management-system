@@ -4,11 +4,11 @@
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
 
-<script src="{{ asset('js/main.js') }}"></script>
-<script src="{{ asset('js/datatables.js') }}"></script>
-
 <script>
     var ajaxHeaders = {
         "Authorization": "{{ $access_token }}",
     };
 </script>
+
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/datatables.js') }}"></script>

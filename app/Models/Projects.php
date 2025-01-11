@@ -39,7 +39,7 @@ class Projects extends Model
     }
 
     public function invoices(): HasMany {
-        return $this->hasMany(Invoices::class, "invoice_id", "id");
+        return $this->hasMany(Invoices::class, "project_id", "id");
     }
     
     public function infoUrl(): Attribute {

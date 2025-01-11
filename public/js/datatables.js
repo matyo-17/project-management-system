@@ -24,9 +24,9 @@ function create() {
     modal.modal("toggle");
 }
 
-function infoButton(url) {
+function infoButton(url, text="Info") {
     return `<a class="btn btn-info" href="`+url+`">
-                <i class="fa fa-info-circle"></i>&nbsp;Edit
+                <i class="fa fa-info-circle"></i>&nbsp;`+text+`
             </a>&nbsp;`;
 }
 

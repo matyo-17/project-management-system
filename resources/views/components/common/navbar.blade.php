@@ -25,6 +25,15 @@
                     </a>
                     @endforeach
                 </div>
+
+                <hr>
+                
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link px-3" href="{{ route('logout') }}" type="button">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="d-md-none">&nbsp;Logout</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

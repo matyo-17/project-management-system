@@ -6,10 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProjectRequest extends FormRequest
+class InvoiceRequest extends FormRequest
 {
-    // protected $stopOnFirstFailure = true;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,19 +27,14 @@ class ProjectRequest extends FormRequest
         $method = strtolower($this->getMethod());
 
         if ($method != "post") {
-            $rules['id'] = ["exists:projects,id"];
+            $rules['id'] = ["exists:invoices,id"];
         } 
         
         if (in_array($method, ["post", "patch", "put"])) {
             $rules = array_merge($rules, [
-                "title" => ["required"],
-                "description" => ["nullable"],
-                "start_date" => ["required", "date_format:Y-m-d"],
-                "end_date" => ["required", "date_format:Y-m-d", "after:start_date"],
-                "budget" => ["required", "decimal:0,2", "gt:0"],
-                "users" => ["nullable", "array"],
-                "users.*" => ["exists:users,id"],
-                "status" => ["required", "in:completed,ongoing,pending,cancelled"],
+                "due_date" => ["required", "date_format:Y-m-d", "after:today"],
+                "amount" => ["required", "decimal:0,2"],
+                "project_id" => ["required", "exists:projects,id"],
             ]);
         }
 

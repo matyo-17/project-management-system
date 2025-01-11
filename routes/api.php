@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Middleware\ApiGuard;
 use App\Http\Middleware\PermissionGuard;
@@ -15,8 +16,21 @@ Route::middleware([ApiGuard::class, PermissionGuard::class])->group(function () 
             Route::delete("/", [ProjectController::class, 'delete']);
         });
     });
+
+    Route::prefix("/invoice")->group(function () {
+        Route::post("/", [InvoiceController::class, 'create']);
+
+        Route::prefix("/{id}")->group(function () {
+            Route::get("/", [InvoiceController::class, 'read']);
+            Route::patch("/", [InvoiceController::class, 'update']);
+            Route::delete("/", [InvoiceController::class, 'delete']);
+
+            Route::patch("/status", [InvoiceController::class, 'status']);
+        });
+    });
     
     Route::prefix("/datatable")->group(function () {        
         Route::post("/projects", [ProjectController::class, 'datatable']);
+        Route::post("/invoices", [InvoiceController::class, 'datatable']);
     });
 });

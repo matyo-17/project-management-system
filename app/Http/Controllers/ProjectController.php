@@ -7,6 +7,7 @@ use App\Lib\Datatable;
 use App\Lib\Utils;
 use App\Models\Projects;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
@@ -18,10 +19,10 @@ class ProjectController extends Controller
     public function project_info(ProjectRequest $request, int $id) {
         $validated = $request->validated();
 
-        $project = Projects::with(["users"])->find($validated['id']);
+        $project = Projects::with(["users", "invoices"])
+                            ->find($validated['id']);
 
         $this->result['project'] = $project;
-        // dd($project);
         return view("pages.project-info", $this->result);
     }
 
@@ -42,23 +43,23 @@ class ProjectController extends Controller
         return response()->json($this->result);
     }
 
-    public function read(ProjectRequest $request) {
+    public function read(ProjectRequest $request, int $id) {
         $validated = $request->validated();
 
-        $project = Projects::with("users")->find($validated['id']);
+        $project = Projects::with("users")->find($id);
 
         $this->result['status'] = "success";
         $this->result['data'] = $project;
         return response()->json($this->result);
     }
 
-    public function update(ProjectRequest $request) {
+    public function update(ProjectRequest $request, int $id) {
         $validated = $request->validated();
         
-        $project = Projects::with("users")->find($validated['id']);
+        $project = Projects::with("users")->find($id);
         
         $users = $validated["users"] ?? [];
-        unset($validated['users'], $validated['id']);
+        unset($validated['users']);
 
         $db_users = Utils::array_str_to_int($project->users->pluck("id")->toArray());
 
@@ -74,10 +75,10 @@ class ProjectController extends Controller
         return response()->json($this->result);
     }
 
-    public function delete(ProjectRequest $request) {
+    public function delete(ProjectRequest $request, int $id) {
         $validated = $request->validated();
 
-        $project = Projects::find($validated['id']);
+        $project = Projects::find($id);
         $project->delete();
 
         $this->result['status'] = "success";
@@ -85,15 +86,23 @@ class ProjectController extends Controller
     }
 
     public function datatable(Request $request) {
+        $clearance = Context::get("clearance");
+        $user = Context::get("user");
+
         $dt = new Datatable($request);
 
-        $dt->query = Projects::query()->withCount(["users"]);
+        $dt->query = Projects::query();
+        if (!$clearance->admin) {
+            $dt->query->whereHas("users", function ($q) use ($user) {
+                $q->where("id", $user->id);
+            });
+        }
+        
         $dt->count()->order()->paginate()->result();
 
         $this->result['data'] = $dt->data;
         $this->result['iTotalDisplayRecords'] = $dt->count;
         $this->result['iTotalRecords'] = $dt->count;
-        $this->result['sql'] = $dt->sql();
         return $this->result;
     }
 }

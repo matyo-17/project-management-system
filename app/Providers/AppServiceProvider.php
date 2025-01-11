@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             $access_token = "";
             if ($user) {
                 $token = $user->tokens()->first();
-                $access_token = "Bearer ".Crypt::encryptString($token->id."|".$token->token);
+                $access_token = "Bearer ".Crypt::encryptString($token->id."|".$token->token."|".$token->expires_at);
             }
             
             $view->with('user', $user);

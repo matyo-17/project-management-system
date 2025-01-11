@@ -20,15 +20,13 @@ class ApiGuard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $access_token = str_replace("Bearer ", "", $request->header('authorization', ""));
-        
         try {
-            $plain = Crypt::decryptString($access_token);
+            $access_token = Crypt::decryptString($request->bearerToken());
         } catch (Exception $e) {
-            $plain = "";
+            $access_token = "";
         }
         
-        $token_details = explode("|", $plain);
+        $token_details = explode("|", $access_token);
         $token = PersonalAccessToken::where([
                     ["id", "=", $token_details[0] ?? ""],
                     ["token", "=", $token_details[1] ?? ""],

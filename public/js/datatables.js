@@ -6,7 +6,7 @@ var baseTableOptions = {
     bLengthChange: false,
     pageLength: 10,
     columnDefs: [
-        {targets: '_all', className: 'text-center'},
+        { targets: '_all', className: 'text-center', orderSequence: ['asc', 'desc'] },
     ],
     language: {
         lengthMenu: "Show _MENU_ entries",

@@ -15,6 +15,16 @@ class ProjectController extends Controller
         return view("pages.projects");
     }
 
+    public function project_info(ProjectRequest $request, int $id) {
+        $validated = $request->validated();
+
+        $project = Projects::with(["users"])->find($validated['id']);
+
+        $this->result['project'] = $project;
+        // dd($project);
+        return view("pages.project-info", $this->result);
+    }
+
     public function create(ProjectRequest $request) {
         $validated = $request->validated();
 

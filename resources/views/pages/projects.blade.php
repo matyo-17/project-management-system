@@ -53,6 +53,7 @@
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {
                     display = "&nbsp;";
+                    display += infoButton(row.info_url);
                     display += editButton(data);
                     display += deleteButton(data);
                     return display;

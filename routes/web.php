@@ -17,6 +17,8 @@ Route::middleware([WebGuard::class, PermissionGuard::class])->group(function () 
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
 
     Route::get("/projects", [ProjectController::class, "projects"])->name("projects");
+    Route::get("/projects/{id}", [ProjectController::class, "project_info"])->name("project-info");
+
     Route::get("/expenses", [DashboardController::class, "dashboard"])->name("expenses");
     Route::get("/invoices", [DashboardController::class, "dashboard"])->name("invoices");
 });

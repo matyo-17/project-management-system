@@ -24,6 +24,12 @@ function create() {
     modal.modal("toggle");
 }
 
+function infoButton(url) {
+    return `<a class="btn btn-info" href="`+url+`">
+                <i class="fa fa-info-circle"></i>&nbsp;Edit
+            </a>&nbsp;`;
+}
+
 function editButton(id) {
     return `<button class="btn btn-primary" onclick="update('`+id+`')">
                 <i class="fa fa-pen"></i>&nbsp;Edit

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,6 +27,10 @@ class Projects extends Model
         "status" => "pending"
     ];
 
+    protected $appends = [
+        'info_url',
+    ];
+
     public function users(): BelongsToMany {
         return $this->belongsToMany(
             User::class, ProjectUsers::class,
@@ -35,5 +40,11 @@ class Projects extends Model
 
     public function invoices(): HasMany {
         return $this->hasMany(Invoices::class, "invoice_id", "id");
+    }
+    
+    public function infoUrl(): Attribute {
+        return new Attribute(
+            get: fn() => route("project-info", ["id" => $this->id]),
+        );
     }
 }

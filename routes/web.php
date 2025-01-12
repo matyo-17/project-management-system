@@ -11,7 +11,7 @@ Route::get("/login", [AuthController::class, "login"])->name("login");
 Route::get("/register", [AuthController::class, "register"])->name("register");
 Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 Route::post("/authenticate", [AuthController::class, "authenticate"])->name("authenticate");
-Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign_up");
+Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign-up");
 
 Route::middleware("auth.web")->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");

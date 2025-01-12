@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Middleware\PermissionGuard;
@@ -23,5 +24,6 @@ Route::middleware([WebGuard::class, PermissionGuard::class])->group(function () 
     Route::get("/invoices", [InvoiceController::class, "invoices"])->name("invoices");
     Route::get("/invoices/{id}", [InvoiceController::class, "invoice_info"])->name("invoice-info");
 
-    Route::get("/expenses", [DashboardController::class, "dashboard"])->name("expenses");
+    Route::get("/expenses", [ExpenseController::class, "expenses"])->name("expenses");
+    Route::get("/expenses/{id}", [ExpenseController::class, "expense_info"])->name("expense-info");
 });

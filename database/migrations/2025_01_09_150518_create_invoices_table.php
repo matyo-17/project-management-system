@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("inv_no")->unique();
             $table->date("due_date");
-            $table->decimal("amount", 19, 4);
+            $table->decimal("amount", 15, 2);
             $table->enum("status", ["paid", "unpaid"]);
             $table->foreignId("project_id");
             $table->timestamps();

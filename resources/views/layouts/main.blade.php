@@ -11,7 +11,7 @@
     <x-common.navbar />
     <x-common.confirm-dialogue />
     
-    <div class="container container-lg">
+    <div class="container container-lg mb-5">
         <div class="row mb-2">
             <h3>@yield("title")</h3>
         </div>

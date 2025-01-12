@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Middleware\ApiGuard;
@@ -26,6 +27,18 @@ Route::middleware([ApiGuard::class, PermissionGuard::class])->group(function () 
             Route::delete("/", [InvoiceController::class, 'delete']);
 
             Route::patch("/status", [InvoiceController::class, 'status']);
+        });
+    });
+
+    Route::prefix("/expense")->group(function () {
+        Route::post("/", [ExpenseController::class, 'create']);
+
+        Route::prefix("/{id}")->group(function () {
+            Route::get("/", [ExpenseController::class, 'read']);
+            Route::patch("/", [ExpenseController::class, 'update']);
+            Route::delete("/", [ExpenseController::class, 'delete']);
+
+            Route::patch("/status", [ExpenseController::class, 'status']);
         });
     });
     

@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string("description");
             $table->date("expense_date");
+            $table->decimal("amount", 15, 2);
             $table->enum("type", ["travel", "equipment", "others"]);
             $table->string("type_details")->nullable();
+            $table->enum("status", ["approved", "rejected", "pending"]);
             $table->foreignId("project_id");
             $table->timestamps();
             $table->softDeletes();

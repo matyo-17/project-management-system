@@ -15,6 +15,8 @@ class PermissionsSeeder extends Seeder
     public function run(): void
     {
         $data = [
+            ["name" => "read_summary", "group" => null],
+
             ["name" => "create_project", "group" => "project"],
             ["name" => "read_project", "group" => "project"],
             ["name" => "update_project", "group" => "project"],

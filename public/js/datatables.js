@@ -17,6 +17,7 @@ var baseTableOptions = {
             next: '<i class="fa fa-arrow-right">',
         }
     },
+    order: [[0, 'desc']],
 }
 
 function create() {

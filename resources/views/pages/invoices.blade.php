@@ -47,8 +47,10 @@
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {
                     display = "&nbsp;";
+                    
+                    @if ($user->has_permission("read_project"))
                     display += infoButton(row.project.info_url, "Project");
-                    display += infoButton(row.info_url);
+                    @endif
 
                     @if ($user->has_permission("update_invoice_status"))
                     if (row.status == 'unpaid') {

@@ -17,7 +17,7 @@ class ExpenseController extends Controller
     }
 
     public function expense_info(Request $request) {
-        return view("pages.expenses");
+        return abort(503);
     }
 
     public function create(ExpenseRequest $request) {

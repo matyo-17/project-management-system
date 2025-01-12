@@ -7,6 +7,7 @@ use App\Http\Requests\InvoiceStatusRequest;
 use App\Lib\Datatable;
 use App\Lib\General;
 use App\Models\Invoices;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Context;
@@ -19,7 +20,7 @@ class InvoiceController extends Controller
     }
 
     public function invoice_info(Request $request) {
-        return view("pages.invoices");
+        return abort(503);
     }
 
     public function create(InvoiceRequest $request) {
@@ -91,6 +92,12 @@ class InvoiceController extends Controller
             $dt->query->whereHas("project.users", function ($q) use ($user) {
                 $q->where("id", $user->id);
             });
+        }
+
+        $filters = $dt->filters;
+        if ($filters['overdue'] ?? false) {
+            $dt->query->where('status', 'unpaid')
+                        ->where('due_date', "<", Carbon::today());
         }
 
         $dt->count()->order()->paginate()->result();

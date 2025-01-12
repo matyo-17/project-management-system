@@ -18,12 +18,18 @@ Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign_up");
 Route::middleware([WebGuard::class, PermissionGuard::class])->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
 
-    Route::get("/projects", [ProjectController::class, "projects"])->name("projects");
-    Route::get("/projects/{id}", [ProjectController::class, "project_info"])->name("project-info");
+    Route::prefix("/projects")->group(function () {
+        Route::get("/", [ProjectController::class, "projects"])->name("projects");
+        Route::get("/{id}", [ProjectController::class, "project_info"])->name("project-info");
+    });
 
-    Route::get("/invoices", [InvoiceController::class, "invoices"])->name("invoices");
-    Route::get("/invoices/{id}", [InvoiceController::class, "invoice_info"])->name("invoice-info");
+    Route::prefix("/invoices")->group(function () {
+        Route::get("/", [InvoiceController::class, "invoices"])->name("invoices");
+        Route::get("/{id}", [InvoiceController::class, "invoice_info"])->name("invoice-info");
+    });
 
-    Route::get("/expenses", [ExpenseController::class, "expenses"])->name("expenses");
-    Route::get("/expenses/{id}", [ExpenseController::class, "expense_info"])->name("expense-info");
+    Route::prefix("/expenses")->group(function () {
+        Route::get("/expenses", [ExpenseController::class, "expenses"])->name("expenses");
+        Route::get("/expenses/{id}", [ExpenseController::class, "expense_info"])->name("expense-info");
+    });
 });

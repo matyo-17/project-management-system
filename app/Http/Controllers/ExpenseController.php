@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExpenseRequest;
 use App\Http\Requests\ExpenseStatusRequest;
+use App\Lib\General;
 use App\Models\Expenses;
+use App\Models\Projects;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -19,6 +21,14 @@ class ExpenseController extends Controller
 
     public function create(ExpenseRequest $request) {
         $validated = $request->validated();
+
+        $project = Projects::find($validated['project_id']);
+        $total = $project->total_expense_amount(true);
+        
+        if (($total + $validated['amount']) > $project->budget) {
+            $this->result['error'] = "Budget exceeded.";
+            return response()->json($this->result, 400);
+        }
 
         $expense = Expenses::create($validated);
 

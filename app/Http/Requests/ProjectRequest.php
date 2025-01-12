@@ -36,7 +36,7 @@ class ProjectRequest extends FormRequest
             $rules = array_merge($rules, [
                 "title" => ["required"],
                 "description" => ["nullable"],
-                "start_date" => ["required", "date_format:Y-m-d"],
+                "start_date" => ["required", "date_format:Y-m-d", "after:1900-01-01"],
                 "end_date" => ["required", "date_format:Y-m-d", "after:start_date"],
                 "budget" => ["required", "decimal:0,2", "gt:0"],
                 "users" => ["nullable", "array"],

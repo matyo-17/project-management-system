@@ -55,4 +55,12 @@ class Projects extends Model
             get: fn() => route("project-info", ["id" => $this->id]),
         );
     }
+
+    public function total_expense_amount(bool $include_pending=false) {
+        $status = [];
+        if ($include_pending) {
+            $status[] = "pending";
+        }
+        return $this->expenses->whereIn("status", $status)->sum("amount");
+    }
 }

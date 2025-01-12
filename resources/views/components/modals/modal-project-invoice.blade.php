@@ -10,11 +10,11 @@
                 <div class="row row-cols-1 rol-cols-md-2">
                     <div class="col mb-2">
                         <label for="form-invoice-due-date" class="form-label">Due Date</label>
-                        <input type="date" id="form-invoice-due-date" class="form-control" name="due-date" required>
+                        <input type="date" id="form-invoice-due-date" class="form-control" name="due-date" min="{{ now()->format('Y-m-d') }}" required>
                     </div>
                     <div class="col mb-2">
                         <label for="form-invoice-amount" class="form-label">Amount</label>
-                        <input type="number" id="form-invoice-amount" class="form-control" name="amount" required>
+                        <input type="number" id="form-invoice-amount" class="form-control" name="amount" min="0" step="0.01" required>
                     </div>
                 </div>
             </div>

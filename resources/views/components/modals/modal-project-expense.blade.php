@@ -10,18 +10,18 @@
                 <div class="row row-cols-1 rol-cols-md-2">
                     <div class="col mb-2">
                         <label for="form-expense-description" class="form-label">Description</label>
-                        <textarea id="form-expense-description" class="form-control" name="description" rows="2"></textarea>
+                        <input type="text" id="form-expense-description" class="form-control" name="description" required>
                     </div>
                 </div>
 
                 <div class="row row-cols-1 rol-cols-md-2">
                     <div class="col mb-2">
                         <label for="form-expense-expense-date" class="form-label">Date</label>
-                        <input type="date" id="form-expense-expense-date" class="form-control" name="expense-date" required>
+                        <input type="date" id="form-expense-expense-date" class="form-control" name="expense-date" max="{{ now()->format('Y-m-d') }}" required>
                     </div>
                     <div class="col mb-2">
                         <label for="form-expense-amount" class="form-label">Amount</label>
-                        <input type="number" id="form-expense-amount" class="form-control" name="amount" required>
+                        <input type="number" id="form-expense-amount" class="form-control" name="amount" min="0" step="0.01" required>
                     </div>
                 </div>
 

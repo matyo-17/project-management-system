@@ -33,7 +33,7 @@ class InvoiceRequest extends FormRequest
         if (in_array($method, ["post", "patch", "put"])) {
             $rules = array_merge($rules, [
                 "due_date" => ["required", "date_format:Y-m-d", "after:today"],
-                "amount" => ["required", "decimal:0,2"],
+                "amount" => ["required", "decimal:0,2", "gt:0"],
                 "project_id" => ["required", "exists:projects,id"],
             ]);
         }

@@ -35,7 +35,7 @@
                 <div class="row row-cols-1 rol-cols-md-2">
                     <div class="col mb-2">
                         <label for="modal-form-budget" class="form-label">Budget</label>
-                        <input type="number" id="modal-form-budget" class="form-control" name="budget" required>
+                        <input type="number" id="modal-form-budget" class="form-control" name="budget" min="0" step="0.01" required>
                     </div>
                     <div class="col mb-2">
                         <label for="modal-form-status" class="form-label">Status</label>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 
-                @if ($user->is_admin())
+                @if ($user->has_permission("update_project_users"))
                 <div class="row row-cols-1">
                     <div class="col mb-2">
                         <label for="modal-form-users" class="form-label">Users</label>

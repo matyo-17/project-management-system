@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Common;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
@@ -15,24 +16,30 @@ class Navbar extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         $menu = [];
 
-        $menu[] = [
-            "name" => "Projects",
-            "route" => "projects",
-        ];
+        if ($user->has_permission("read_project")) {
+            $menu[] = [
+                "name" => "Projects",
+                "route" => "projects",
+            ];
+        }
 
-        $menu[] = [
-            "name" => "Invoices",
-            "route" => "invoices",
-        ];
+        if ($user->has_permission("read_invoice")) {
+            $menu[] = [
+                "name" => "Invoices",
+                "route" => "invoices",
+            ];
+        }
 
-        $menu[] = [
-            "name" => "Expenses",
-            "route" => "expenses",
-        ];
+        if ($user->has_permission("read_expense")) {
+            $menu[] = [
+                "name" => "Expenses",
+                "route" => "expenses",
+            ];
+        }
 
         $this->menu = $menu;
         $this->route = Route::currentRouteName();

@@ -4,10 +4,12 @@
 
 @section("content")
 <div class="card">
-    <x-modals.project :$clearance />
+    <x-modals.project :$user />
 
     <div class="card-body">
+        @if ($user->has_permission('create_project'))
         <x-buttons.create-new />
+        @endif
         <x-datatable />
     </div>
 </div>
@@ -54,8 +56,15 @@
                 render: function (data, type, row) {
                     display = "&nbsp;";
                     display += infoButton(row.info_url);
+                    
+                    @if ($user->has_permission('update_project'))
                     display += editButton(data);
+                    @endif
+                    
+                    @if ($user->has_permission('delete_project'))
                     display += deleteButton(data);
+                    @endif
+
                     return display;
                 }
             },
@@ -97,7 +106,8 @@
             }
         });
     }
-
+    
+    @if ($user->has_permission('create_project') || $user->has_permission('update_project'))
     function save() {
         var formData = formToObject("form-modal");
         $.ajax({
@@ -114,7 +124,9 @@
             }
         });
     }
+    @endif
 
+    @if ($user->has_permission('delete_project'))
     function softDelete(id) {
         doubleConfirm("Delete", function () {
             $.ajax({
@@ -130,5 +142,6 @@
             });
         });
     }
+    @endif
 </script>
 @endsection

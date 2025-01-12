@@ -23,6 +23,10 @@ class Projects extends Model
         "status",
     ];
 
+    protected $hidden = [
+        "created_at", "updated_at", "deleted_at",
+    ];
+
     protected $attributes = [
         "status" => "pending"
     ];
@@ -40,6 +44,10 @@ class Projects extends Model
 
     public function invoices(): HasMany {
         return $this->hasMany(Invoices::class, "project_id", "id");
+    }
+
+    public function expenses(): HasMany {
+        return $this->hasMany(Expenses::class, "project_id", "id");
     }
     
     public function infoUrl(): Attribute {

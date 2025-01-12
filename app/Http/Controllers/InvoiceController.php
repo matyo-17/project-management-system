@@ -81,14 +81,13 @@ class InvoiceController extends Controller
     }
 
     public function datatable(Request $request) {
-        $clearance = Context::get("clearance");
         $user = Context::get("user");
         
         $dt = new Datatable($request);
 
         $dt->query = Invoices::query()->with(["project", "project.users"]);
 
-        if (!$clearance->admin) {
+        if (!$user->is_admin()) {
             $dt->query->whereHas("project.users", function ($q) use ($user) {
                 $q->where("id", $user->id);
             });

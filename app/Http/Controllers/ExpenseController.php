@@ -65,26 +65,4 @@ class ExpenseController extends Controller
         $this->result['status'] = "success";
         return response()->json($this->result);
     }
-
-    // public function datatable(Request $request) {
-    //     $clearance = Context::get("clearance");
-    //     $user = Context::get("user");
-        
-    //     $dt = new Datatable($request);
-
-    //     $dt->query = Invoices::query()->with(["project", "project.users"]);
-
-    //     if (!$clearance->admin) {
-    //         $dt->query->whereHas("project.users", function ($q) use ($user) {
-    //             $q->where("id", $user->id);
-    //         });
-    //     }
-
-    //     $dt->count()->order()->paginate()->result();
-
-    //     $this->result['data'] = $dt->data;
-    //     $this->result['iTotalDisplayRecords'] = $dt->count;
-    //     $this->result['iTotalRecords'] = $dt->count;
-    //     return $this->result;
-    // }
 }

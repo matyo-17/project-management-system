@@ -14,7 +14,10 @@ class Permissions extends Model
 
     protected $fillable = [
         "name",
-        "group",
+    ];
+
+    protected $hidden = [
+        "created_at", "updated_at", "deleted_at",
     ];
 
     public function roles(): BelongsToMany {

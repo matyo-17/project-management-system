@@ -21,6 +21,10 @@ class Invoices extends Model
         "project_id",
     ];
 
+    protected $hidden = [
+        "created_at", "updated_at", "deleted_at",
+    ];
+
     protected $attributes = [
         "status" => "unpaid"
     ];

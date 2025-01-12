@@ -23,12 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Guard $auth): void
     {
-
         View::composer('*', function ($view) use ($auth) {
             $user = $auth->user();
 
             $access_token = "";
             if ($user) {
+                $user->load(["role", "role.permissions"]);
                 $token = $user->tokens()->first();
                 $access_token = "Bearer ".Crypt::encryptString($token->id."|".$token->token."|".$token->expires_at);
             }

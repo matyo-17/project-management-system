@@ -86,13 +86,12 @@ class ProjectController extends Controller
     }
 
     public function datatable(Request $request) {
-        $clearance = Context::get("clearance");
         $user = Context::get("user");
 
         $dt = new Datatable($request);
 
         $dt->query = Projects::query();
-        if (!$clearance->admin) {
+        if (!$user->is_admin()) {
             $dt->query->whereHas("users", function ($q) use ($user) {
                 $q->where("id", $user->id);
             });

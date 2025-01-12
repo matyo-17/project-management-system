@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Lib\Clearance;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Context;
@@ -15,13 +14,11 @@ class PermissionGuard
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $permission): Response
     {
         $user = Context::get("user");
-        $clearance = new Clearance($user);
+        if (!$user->has_permission($permission)) abort(403);        
 
-        Context::add("clearance", $clearance);
-        view()->share("clearance", $clearance);
         return $next($request);
     }
 }

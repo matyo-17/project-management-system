@@ -36,6 +36,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        "created_at", "updated_at", "deleted_at",
     ];
 
     /**
@@ -60,6 +61,19 @@ class User extends Authenticatable
             Projects::class, ProjectUsers::class,
             "user_id", "project_id"
         );
+    }
+
+    public function has_permission(string $key): bool {
+        return $this->role->permissions->contains("name", $key);
+    }
+
+    public function is_admin(bool $super=false): bool {
+        $is_admin = $this->role->admin === 1;
+        if (!$super) {
+            return $is_admin;
+        } else {
+            return $is_admin && ($this->role->name === "super");
+        }
     }
 
     public static function normal_users() {

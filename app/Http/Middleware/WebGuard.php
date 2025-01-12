@@ -20,6 +20,7 @@ class WebGuard
         $user = $request->user();
         if (!$user) return $this->logout($request);
 
+
         $session_token = $request->session()->get('access_token', '');
         $token_details = explode("|", $session_token);
         
@@ -31,6 +32,8 @@ class WebGuard
         if (!$access_token) return $this->logout($request);
         
         $access_token->update(["expires_at" => Carbon::now()->addMinutes(15)]);
+
+        $user->load(["role", "role.permissions"]);
 
         Context::add('user', $user);
         return $next($request);

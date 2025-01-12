@@ -37,6 +37,8 @@ class ApiGuard
 
         $user = $token->tokenable;
 
+        $user->load(["role", "role.permissions"]);
+
         Context::add('user', $user);
         return $next($request);
     }

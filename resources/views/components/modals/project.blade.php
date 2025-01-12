@@ -48,6 +48,7 @@
                     </div>
                 </div>
                 
+                @if ($user->is_admin())
                 <div class="row row-cols-1">
                     <div class="col mb-2">
                         <label for="modal-form-users" class="form-label">Users</label>
@@ -58,6 +59,7 @@
                         </select>
                     </div>
                 </div>
+                @endif
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>

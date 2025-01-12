@@ -4,7 +4,7 @@
 
 @section("content")
 <div class="card">
-    <x-modals.project :$user />
+    <x-modals.modal-project :$user />
 
     <div class="card-body">
         @if ($user->has_permission('create_project'))

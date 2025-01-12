@@ -3,8 +3,8 @@
 @section("title", "Project Info")
 
 @section("content")
-<x-modals.project-invoice :$project />
-<x-modals.project-expense :$project />
+<x-modals.modal-project-invoice :$project />
+<x-modals.modal-project-expense :$project />
 
 <div class="card">
     <div class="card-body">
@@ -65,11 +65,13 @@
             <div class="col-8">
                 <h5 class="card-title">Invoices</h5>
             </div>
+            @if ($user->has_permission('create_invoice'))
             <div class="col-4 text-end">
                 <button class="btn btn-primary" onclick="createInvoice()">
                     <i class="fa fa-plus"></i>&nbsp;New
                 </button>
             </div>
+            @endif
         </div>
 
         <div class="table-responsive">
@@ -111,11 +113,13 @@
             <div class="col-8">
                 <h5 class="card-title">Expenses</h5>
             </div>
+            @if ($user->has_permission('create_expense'))
             <div class="col-4 text-end">
                 <button class="btn btn-primary" onclick="createExpense()">
                     <i class="fa fa-plus"></i>&nbsp;New
                 </button>
             </div>
+            @endif
         </div>
 
         <div class="table-responsive">
@@ -153,6 +157,7 @@
 @endsection
 
 @section("scripts")
+@if ($user->has_permission('create_invoice'))
 <script>
     function createInvoice() {
         $('#form-invoice').get(0).reset();
@@ -175,7 +180,9 @@
         });
     }
 </script>
+@endif
 
+@if ($user->has_permission('create_expense'))
 <script>
     function createExpense() {
         $('#form-expense').get(0).reset();
@@ -198,4 +205,5 @@
         });
     }
 </script>
+@endif
 @endsection

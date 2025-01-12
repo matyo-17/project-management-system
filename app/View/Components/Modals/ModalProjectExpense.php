@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ProjectExpense extends Component
+class ModalProjectExpense extends Component
 {
     public Projects $project;
 
@@ -24,6 +24,6 @@ class ProjectExpense extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.modals.project-expense');
+        return view('components.modals.modal-project-expense');
     }
 }

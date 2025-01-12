@@ -30,7 +30,6 @@ class ApiGuard
         $token = PersonalAccessToken::where([
                     ["id", "=", $token_details[0] ?? ""],
                     ["token", "=", $token_details[1] ?? ""],
-                    ["expires_at", "=", $token_details[2] ?? ""],
                     ["expires_at", ">", Carbon::now()],
                 ])->first();
         if (!$token) return abort(401);

@@ -9,7 +9,8 @@ function loading(status) {
 
 function toast(type, title, message) {
     toast_item = $('#toast');
-    toast_item.addClass("text-bg-" + type);
+    toast_item.removeClass("text-bg-success text-bg-danger")
+                .addClass("text-bg-" + type);
 
     $('#toast-title').html(title);
     $('#toast-message').html(message);

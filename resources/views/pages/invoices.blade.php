@@ -50,13 +50,18 @@
                     display += infoButton(row.project.info_url, "Project");
                     display += infoButton(row.info_url);
 
+                    @if ($user->has_permission("update_invoice_status"))
                     if (row.status == 'unpaid') {
                         display += `<button class="btn btn-success" onclick="paid('`+data+`')">
                                         <i class="fa fa-check"></i>&nbsp;Paid
                                     </button>&nbsp;`;
                     }
+                    @endif
 
+                    @if ($user->has_permission("delete_invoice"))
                     display += deleteButton(data);
+                    @endif
+
                     return display;
                 }
             },
@@ -65,6 +70,7 @@
 
     var table = $("#datatable").DataTable($.extend(tableOptions, baseTableOptions));
 
+    @if ($user->has_permission("update_invoice_status"))
     function paid(id) {
         doubleConfirm("Paid", function () {
             $.ajax({
@@ -83,7 +89,9 @@
             });
         });
     }
+    @endif
 
+    @if ($user->has_permission("delete_invoice"))
     function softDelete(id) {
         doubleConfirm("Delete", function () {
             $.ajax({
@@ -99,5 +107,6 @@
             });
         });
     }
+    @endif
 </script>
 @endsection

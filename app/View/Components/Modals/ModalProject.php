@@ -5,10 +5,9 @@ namespace App\View\Components\Modals;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
-class Project extends Component
+class ModalProject extends Component
 {
     public array $users;
     public User $user;
@@ -32,6 +31,6 @@ class Project extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.modals.project');
+        return view('components.modals.modal-project');
     }
 }

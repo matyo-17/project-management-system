@@ -43,5 +43,6 @@ Route::middleware("auth.api")->group(function () {
     Route::prefix("/datatable")->group(function () {        
         Route::post("/projects", [ProjectController::class, 'datatable'])->middleware("permission:read_project");
         Route::post("/invoices", [InvoiceController::class, 'datatable'])->middleware("permission:read_invoice");
+        Route::post("/expenses", [ExpenseController::class, 'datatable'])->middleware("permission:read_expense");
     });
 });

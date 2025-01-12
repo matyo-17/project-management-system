@@ -16,6 +16,7 @@ class Expenses extends Model
         "expense_date",
         "type",
         "type_details",
+        "status",
         "project_id",
     ];
 

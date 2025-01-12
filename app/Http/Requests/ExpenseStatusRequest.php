@@ -24,7 +24,7 @@ class ExpenseStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => ["required", "exists:,id"],
+            "id" => ["required", "exists:expenses,id"],
             "status" => ["required", "in:approved,rejected"],
         ];
     }

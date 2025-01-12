@@ -34,7 +34,9 @@ class ExpenseRequest extends FormRequest
             $rules = array_merge($rules, [
                 "description" => ["required"],
                 "expense_date" => ["required", "date_format:Y-m-d", "after:1900-01-01", "before:now"],
-                "amount" => ["required", "numeric", "gt:0"],
+                "amount" => ["required", "decimal:0,2", "gt:0"],
+                "type" => ["required", "in:travel,equipment,others"],
+                "type_details" => ["required_if:type,others"],
                 "project_id" => ["required", "exists:projects,id"],
             ]);
         }

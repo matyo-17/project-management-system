@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExpenseRequest;
 use App\Http\Requests\ExpenseStatusRequest;
-use App\Lib\General;
+use App\Lib\Datatable;
 use App\Models\Expenses;
 use App\Models\Projects;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Context;
 
 class ExpenseController extends Controller
 {
@@ -74,5 +75,26 @@ class ExpenseController extends Controller
         
         $this->result['status'] = "success";
         return response()->json($this->result);
+    }
+
+    public function datatable(Request $request) {
+        $user = Context::get("user");
+        
+        $dt = new Datatable($request);
+
+        $dt->query = Expenses::query()->with(["project", "project.users"]);
+
+        if (!$user->is_admin()) {
+            $dt->query->whereHas("project.users", function ($q) use ($user) {
+                $q->where("id", $user->id);
+            });
+        }
+
+        $dt->count()->order()->paginate()->result();
+
+        $this->result['data'] = $dt->data;
+        $this->result['iTotalDisplayRecords'] = $dt->count;
+        $this->result['iTotalRecords'] = $dt->count;
+        return $this->result;
     }
 }

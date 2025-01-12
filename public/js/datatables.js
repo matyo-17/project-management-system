@@ -37,7 +37,7 @@ function editButton(id) {
 }
 
 function deleteButton(id) {
-    return `<button class="btn btn-danger" onclick="softDelete('`+id+`')">
+    return `<button class="btn btn-outline-danger" onclick="softDelete('`+id+`')">
                 <i class="fa fa-trash"></i>&nbsp;Delete
             </button>&nbsp;`
 }

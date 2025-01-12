@@ -25,19 +25,23 @@
                     </div>
                 </div>
 
-                <div class="row row-cols-1 rol-cols-md-2">
-                    <!-- <div class="col mb-2">
-                        <label for="form-expense-type" class="form-label">Type</label>
-                        <select id="form-expense-type" class="form-select" name="type" required>
-                            <option value="" selected hidden>Please Select...</option>
-                            <option value=""></option>
-                            <option value="others">Others (Please Specify)</option>
-                        </select>
-                    </div>
+                <div class="row row-cols-1 rol-cols-md-3">
                     <div class="col mb-2">
-                        <label for="form-expense-type-details" class="form-label">Type Details</label>
-                        <input type="test" id="form-expense-type-details" class="form-control" name="type-details" required>
-                    </div> -->
+                        <label class="form-label">Type</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="form-expense-type-travel" value="travel">
+                            <label class="form-check-label" for="form-expense-type-travel">Travel</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="form-expense-type-equipment" value="equipment">
+                            <label class="form-check-label" for="form-expense-type-equipment">Equipment</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="form-expense-type-others" value="equipment">
+                            <label class="form-check-label" for="form-expense-type-others">Others (Please specify)</label>
+                            <input class="form-control" type="input" name="type-details">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -30,6 +30,7 @@
             { data: 'start_date', title: 'Start Date' },
             { data: 'end_date', title: 'End Date' },
             { data: 'budget', title: 'Budget (RM)' },
+            { data: 'expenses_sum_amount', title: 'Expenses (RM)' },
             { 
                 data: 'status', title: 'Status',
                 render: function (data, type, row) {

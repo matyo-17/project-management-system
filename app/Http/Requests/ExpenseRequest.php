@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Context;
 
 class ExpenseRequest extends FormRequest
 {
@@ -37,9 +38,13 @@ class ExpenseRequest extends FormRequest
                 "amount" => ["required", "decimal:0,2", "gt:0"],
                 "type" => ["required", "in:travel,equipment,others"],
                 "type_details" => ["required_if:type,others"],
-                "status" => ["required", "in:approved,pending,rejected"],
                 "project_id" => ["required", "exists:projects,id"],
             ]);
+
+            $user = Context::get("user");
+            if ($user->is_admin()) {
+                $rules["status"] = ["required", "in:approved,pending,rejected"];
+            }
         }
 
         return $rules;

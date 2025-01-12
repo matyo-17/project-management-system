@@ -57,7 +57,7 @@ class Projects extends Model
     }
 
     public function total_expense_amount(bool $include_pending=false) {
-        $status = [];
+        $status = ["approved"];
         if ($include_pending) {
             $status[] = "pending";
         }

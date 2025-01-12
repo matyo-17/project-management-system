@@ -19,7 +19,7 @@ class ProjectController extends Controller
     public function project_info(ProjectRequest $request, int $id) {
         $validated = $request->validated();
 
-        $project = Projects::with(["users", "invoices"])
+        $project = Projects::with(["users", "invoices", "expenses"])
                             ->find($validated['id']);
 
         $this->result['project'] = $project;
@@ -90,7 +90,12 @@ class ProjectController extends Controller
 
         $dt = new Datatable($request);
 
-        $dt->query = Projects::query();
+        $dt->query = Projects::query()
+                                ->with(["users", "expenses"])
+                                ->withSum(["expenses" => function($q) {
+                                    $q->where("status", "approved");
+                                }], "amount");
+                                
         if (!$user->is_admin()) {
             $dt->query->whereHas("users", function ($q) use ($user) {
                 $q->where("id", $user->id);

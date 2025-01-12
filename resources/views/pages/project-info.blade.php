@@ -23,7 +23,12 @@
 
         <div class="row mb-2">
             <div class="col-12 col-md-4 fw-bold">Budget</div>
-            <div class="col-12 col-md-8">RM {{ $project->budget }}</div>
+            <div class="col-12 col-md-8">RM {{ number_format($project->budget, 2) }}</div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-12 col-md-4 fw-bold">Total Expenses</div>
+            <div class="col-12 col-md-8">RM {{ number_format($project->total_expense_amount(), 2) }}</div>
         </div>
 
         <div class="row mb-2">
@@ -139,7 +144,7 @@
                         <tr>
                             <td>{{ $e->expense_date }}</td>
                             <td>{{ $e->description }}</td>
-                            <td>{{ number_format($e->amount) }}</td>
+                            <td>{{ number_format($e->amount, 2) }}</td>
                             <td>{{ ($e->type !== 'others') ? $e->type : $e->type_details }}</td>
                             <td>{{ ucfirst($e->status) }}</td>
                         </tr>

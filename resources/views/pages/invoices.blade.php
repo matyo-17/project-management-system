@@ -43,6 +43,12 @@
                     
                 }
             },
+            { 
+                data: 'project', title: 'Project',
+                render: function(data, type, row) {
+                    return data.title;
+                }
+            },
             {
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {

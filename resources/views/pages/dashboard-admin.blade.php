@@ -10,7 +10,7 @@
                 <h5 class="card-title">Projects</h5>
                 <table class="table table-sm m-0">
                     <tr>
-                        <th class="text-info">Paid</th>
+                        <th class="text-info">Total</th>
                         <td><span id="project-count"></span></td>
                     </tr>
                 </table>
@@ -44,7 +44,7 @@
                 <h5 class="card-title">Expenses</h5>
                 <table class="table table-sm m-0">
                     <tr>
-                        <th class="text-infp">Total</th>
+                        <th class="text-info">Total</th>
                         <td>RM&emsp;<span id="expense-amount"></span></td>
                         <td><span id="expense-count"></span></td>
                     </tr>

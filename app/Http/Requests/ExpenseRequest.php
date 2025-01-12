@@ -37,6 +37,7 @@ class ExpenseRequest extends FormRequest
                 "amount" => ["required", "decimal:0,2", "gt:0"],
                 "type" => ["required", "in:travel,equipment,others"],
                 "type_details" => ["required_if:type,others"],
+                "status" => ["required", "in:approved,pending,rejected"],
                 "project_id" => ["required", "exists:projects,id"],
             ]);
         }

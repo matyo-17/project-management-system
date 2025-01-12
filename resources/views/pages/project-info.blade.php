@@ -140,7 +140,7 @@
                             <td>{{ $e->expense_date }}</td>
                             <td>{{ $e->description }}</td>
                             <td>{{ number_format($e->amount) }}</td>
-                            <td>{{ $e->type ?: $e->type_details }}</td>
+                            <td>{{ ($e->type !== 'others') ? $e->type : $e->type_details }}</td>
                             <td>{{ ucfirst($e->status) }}</td>
                         </tr>
                         @endforeach

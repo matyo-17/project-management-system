@@ -28,7 +28,7 @@ class ExpenseRequest extends FormRequest
 
         if ($method != "post") {
             $rules['id'] = ["exists:expenses,id"];
-        } 
+        }
         
         if (in_array($method, ["post", "patch", "put"])) {
             $rules = array_merge($rules, [
@@ -36,10 +36,13 @@ class ExpenseRequest extends FormRequest
                 "expense_date" => ["required", "date_format:Y-m-d", "after:1900-01-01", "before:now"],
                 "amount" => ["required", "decimal:0,2", "gt:0"],
                 "type" => ["required", "in:travel,equipment,others"],
-                "status" => ["nullable", "in:approved,pending,rejected"],
                 "type_details" => ["required_if:type,others"],
                 "project_id" => ["required", "exists:projects,id"],
             ]);
+        }
+
+        if (in_array($method, ["patch", "put"])) {
+            $rules["status"] = ["nullable", "in:approved,pending,rejected"];
         }
 
         return $rules;

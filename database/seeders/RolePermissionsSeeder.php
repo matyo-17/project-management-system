@@ -20,7 +20,10 @@ class RolePermissionsSeeder extends Seeder
         $super->permissions()->attach($super_permissions);
 
         $admin = Roles::where('name', 'admin')->first();
-        $except = ['create_expense', 'delete_invoice'];
+        $except = [
+            'create_expense', 'delete_invoice', 
+            'create_role', 'read_role', 'update_role', 'delete_role'
+        ];
         $admin_permissions = Permissions::whereNotIn('name', $except)->pluck("id")->toArray();
         $admin->permissions()->attach($admin_permissions);
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware("auth.api")->group(function () {
@@ -42,10 +43,21 @@ Route::middleware("auth.api")->group(function () {
             Route::patch("/status", [ExpenseController::class, 'status'])->middleware("permission:update_expense_status");
         });
     });
+
+    Route::prefix("/role")->group(function () {
+        Route::post("/", [RoleController::class, 'create'])->middleware("permission:create_role");
+
+        Route::prefix("/{id}")->group(function () {
+            Route::get("/", [RoleController::class, 'read'])->middleware("permission:read_role");
+            Route::patch("/", [RoleController::class, 'update'])->middleware("permission:update_role");
+            Route::delete("/", [RoleController::class, 'delete'])->middleware("permission:delete_role");
+        });
+    });
     
     Route::prefix("/datatable")->group(function () {        
         Route::post("/projects", [ProjectController::class, 'datatable'])->middleware("permission:read_project");
         Route::post("/invoices", [InvoiceController::class, 'datatable'])->middleware("permission:read_invoice");
         Route::post("/expenses", [ExpenseController::class, 'datatable'])->middleware("permission:read_expense");
+        Route::post("/roles", [RoleController::class, 'datatable'])->middleware("permission:read_role");
     });
 });

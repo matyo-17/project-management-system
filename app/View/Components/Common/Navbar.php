@@ -41,6 +41,21 @@ class Navbar extends Component
             ];
         }
 
+        $submenu = [];
+        if ($user->has_permission("read_role")) {
+            $submenu[] = [
+                "name" => "Roles",
+                "route" => "roles",
+            ];
+        }
+
+        if (count($submenu)) {
+            $menu[] = [
+                "name" => "Setup",
+                "submenu" => $submenu,
+            ];
+        }
+
         $this->menu = $menu;
         $this->route = Route::currentRouteName();
     }

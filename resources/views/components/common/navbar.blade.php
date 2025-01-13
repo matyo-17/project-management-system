@@ -20,19 +20,38 @@
             <div class="offcanvas-body">
                 <div class="navbar-nav me-auto">
                     @foreach ($menu as $m)
-                    <a class="nav-link px-2 {{ $route == $m['route'] ? 'active' : '' }}" href="{{ route($m['route']) }}">
-                        {{ $m['name'] }}
-                    </a>
+                        @if (!isset($m['submenu']))
+                        <li class="nav-item">
+                            <a class="nav-link {{ $route == $m['route'] ? 'active' : '' }}" href="{{ route($m['route']) }}">
+                                {{ $m['name'] }}
+                            </a>
+                        </li>
+                        @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ $m['name'] }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach ($m['submenu'] as $s)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route($s['route']) }}">{{ $s['name'] }}</a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endif
                     @endforeach
                 </div>
 
                 <hr>
                 
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link px-3" href="{{ route('logout') }}" type="button">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="d-md-none">&nbsp;Logout</span>
-                    </a>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ route('logout') }}" type="button">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="d-md-none">&nbsp;Logout</span>
+                        </a>
+                    </li>
                 </div>
             </div>
         </div>

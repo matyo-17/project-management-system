@@ -34,6 +34,11 @@ class PermissionsSeeder extends Seeder
             ["name" => "update_expense", "group" => "expense"],
             ["name" => "delete_expense", "group" => "expense"],
             ["name" => "update_expense_status", "group" => "expense"],
+
+            ["name" => "create_role", "group" => "setup_role"],
+            ["name" => "read_role", "group" => "setup_role"],
+            ["name" => "update_role", "group" => "setup_role"],
+            ["name" => "delete_role", "group" => "setup_role"],
         ];
 
         DB::table('permissions')->insert(SeedHelper::add_timestamps($data));

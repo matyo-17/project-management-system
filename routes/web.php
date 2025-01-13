@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/login", [AuthController::class, "login"])->name("login");
@@ -27,7 +28,9 @@ Route::middleware("auth.web")->group(function () {
     });
 
     Route::prefix("/expenses")->middleware("permission:read_expense")->group(function () {
-        Route::get("/expenses", [ExpenseController::class, "expenses"])->name("expenses");
+        Route::get("/", [ExpenseController::class, "expenses"])->name("expenses");
         Route::get("/expenses/{id}", [ExpenseController::class, "expense_info"])->name("expense-info");
     });
+
+    Route::get("/role", [RoleController::class, "role"])->name("roles")->middleware("permission:read_role");
 });

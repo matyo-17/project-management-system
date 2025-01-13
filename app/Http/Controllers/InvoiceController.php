@@ -101,10 +101,10 @@ class InvoiceController extends Controller
         }
 
         if ($filters["invoice_no"] ?? null) {
-            $dt->query->where('invoice_no', $filters['invoice_no']);
+            $dt->query->where('inv_no', $filters['invoice_no']);
         }
 
-        if ($filters["status"] ?? null) {
+        if ($filters["status"] ?? []) {
             $dt->query->whereIn('status', $filters['status']);
         }
 

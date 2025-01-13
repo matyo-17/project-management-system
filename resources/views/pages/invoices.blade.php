@@ -36,11 +36,12 @@
             url: '/api/datatable/invoices',
             type: 'post',
             headers: ajaxHeaders,
-            render: function (d) {
+            data: function (d) {
                 d.filters = {
                     'invoice_no': $("#filter-inv-no").val(),
                     'status': $("#filter-status").val(),
                 };
+                console.log(d)
                 return d;
             }
         },

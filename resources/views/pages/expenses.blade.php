@@ -6,6 +6,32 @@
 <x-modals.modal-expense />
 
 <div class="card">
+    <x-accordion.datatable-filter>
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col mb-2">
+                <label class="form-label" for="filter-type">Type</label>
+                <select class="form-select select2" id="filter-type" multiple>
+                    <option value="travel">Travel</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            <div class="col mb-2">
+                <label class="form-label" for="filter-type-details">Type Details</label>
+                <input type="text" class="form-control" id="filter-type-details">
+            </div>
+            <div class="col mb-2">
+                <label class="form-label" for="filter-status">Status:</label>
+                <select class="form-select select2" id="filter-status" multiple>
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+        </div>
+        <x-buttons.datatable-filter />
+    </x-accordion.datatable-filter>
+
     <div class="card-body">
         <x-datatable />
     </div>
@@ -21,6 +47,14 @@
             url: '/api/datatable/expenses',
             type: 'post',
             headers: ajaxHeaders,
+            data: function (d) {
+                d.filters = {
+                    'type': $("#filter-type").val(),
+                    'type_details': $("#filter-type-details").val(),
+                    'status': $("#filter-status").val(),
+                }
+                return d;
+            }
         },
         columns: [
             { data: 'expense_date', title: 'Date' },

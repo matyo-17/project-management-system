@@ -91,7 +91,16 @@ class ExpenseController extends Controller
         }
 
         $filters = $dt->filters;
-        if ($filters["status"] ?? null) {
+        if ($filters["type"] ?? []) {
+            $dt->query->whereIn('type', $filters['type']);
+        }
+
+        if ($filters["type_details"] ?? null) {
+            $dt->query->where('type', "others")
+                        ->where("type_details", $filters["type_details"]);
+        }
+
+        if ($filters["status"] ?? []) {
             $dt->query->whereIn('status', $filters['status']);
         }
 

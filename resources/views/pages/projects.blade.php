@@ -6,10 +6,30 @@
 <x-modals.modal-project :$user />
 
 <div class="card">
+    <x-accordion.datatable-filter>
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col mb-2">
+                <label class="form-label" for="filter-title">Title</label>
+                <input type="text" class="form-control" id="filter-title">
+            </div>
+            <div class="col mb-2">
+                <label class="form-label" for="filter-status">Status:</label>
+                <select class="form-select select2" id="filter-status" multiple>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+        </div>
+        <x-buttons.datatable-filter />
+    </x-accordion.datatable-filter>
+
     <div class="card-body">
         @if ($user->has_permission('create_project'))
         <x-buttons.create-new />
         @endif
+
         <x-datatable />
     </div>
 </div>
@@ -23,6 +43,13 @@
             url: '/api/datatable/projects',
             type: 'post',
             headers: ajaxHeaders,
+            data: function (d) {
+                d.filters = {
+                    'title': $("#filter-title").val(),
+                    'status': $("#filter-status").val(),
+                };
+                return d;
+            },
         },
         columns: [
             { data: 'id', visible: false },

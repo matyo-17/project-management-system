@@ -68,6 +68,17 @@
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {
                     display = "&nbsp;";
+
+                    @if ($user->has_permission("update_expense_status"))
+                    if (row.status == "pending") {
+                        display += `<button class="btn btn-outline-success" onclick="changeStatus('`+data+`', 1)">
+                                        <i class="fa fa-check"></i>&nbsp;Approve
+                                    </button>&nbsp;`;
+                        display += `<button class="btn btn-outline-danger" onclick="changeStatus('`+data+`', 0)">
+                                        <i class="fa fa-x"></i>&nbsp;Reject
+                                    </button>&nbsp;`;
+                    }
+                    @endif
                     
                     @if ($user->has_permission("read_project"))
                     display += infoButton(row.project.info_url, "Project");
@@ -75,17 +86,6 @@
 
                     @if ($user->has_permission("update_expense"))
                     display += editButton(data);
-                    @endif
-
-                    @if ($user->has_permission("update_expense_status"))
-                    if (row.status == "pending") {
-                        display += `<button class="btn btn-success" onclick="changeStatus('`+data+`', 1)">
-                                        <i class="fa fa-check"></i>&nbsp;Approve
-                                    </button>&nbsp;`;
-                        display += `<button class="btn btn-danger" onclick="changeStatus('`+data+`', 0)">
-                                        <i class="fa fa-x"></i>&nbsp;Reject
-                                    </button>&nbsp;`;
-                    }
                     @endif
 
                     @if ($user->has_permission("delete_expense"))

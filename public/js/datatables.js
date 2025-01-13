@@ -20,6 +20,22 @@ var baseTableOptions = {
     order: [[0, 'desc']],
 }
 
+function filter() {
+    table.draw();
+}
+
+function reset() {
+    $("#filter-div input").each(function () {
+        $(this).val("");
+    });
+
+    $("#filter-div select").each(function () {
+        $(this).val("").trigger("change");
+    });
+
+    table.draw();
+}
+
 function create() {
     resetForm();
     modal.modal("toggle");
@@ -38,7 +54,7 @@ function editButton(id) {
 }
 
 function deleteButton(id) {
-    return `<button class="btn btn-outline-danger" onclick="softDelete('`+id+`')">
+    return `<button class="btn btn-danger" onclick="softDelete('`+id+`')">
                 <i class="fa fa-trash"></i>&nbsp;Delete
             </button>&nbsp;`
 }

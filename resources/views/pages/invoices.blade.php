@@ -53,17 +53,17 @@
                 data: 'id', title: 'Action', orderable: false,
                 render: function (data, type, row) {
                     display = "&nbsp;";
-                    
-                    @if ($user->has_permission("read_project"))
-                    display += infoButton(row.project.info_url, "Project");
-                    @endif
 
                     @if ($user->has_permission("update_invoice_status"))
                     if (row.status == 'unpaid') {
-                        display += `<button class="btn btn-success" onclick="paid('`+data+`')">
+                        display += `<button class="btn btn-outline-success" onclick="paid('`+data+`')">
                                         <i class="fa fa-check"></i>&nbsp;Paid
                                     </button>&nbsp;`;
                     }
+                    @endif
+                    
+                    @if ($user->has_permission("read_project"))
+                    display += infoButton(row.project.info_url, "Project");
                     @endif
 
                     @if ($user->has_permission("delete_invoice"))

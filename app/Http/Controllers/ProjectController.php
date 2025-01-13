@@ -101,6 +101,15 @@ class ProjectController extends Controller
                 $q->where("id", $user->id);
             });
         }
+
+        $filters = $dt->filters;
+        if ($filters["title"] ?? null) {
+            $dt->query->where("title", $filters['title']);
+        }
+        
+        if ($filters['status'] ?? []) {
+            $dt->query->whereIn('status', $filters['status']);
+        }
         
         $dt->count()->order()->paginate()->result();
 

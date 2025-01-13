@@ -3,12 +3,14 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware("auth.api")->group(function () {
     Route::get("/summary", [DashboardController::class, 'summary'])->middleware("permission:read_summary");
+    Route::patch("/profile", [ProfileController::class, 'update']);
 
     Route::prefix("/project")->group(function () {
         Route::post("/", [ProjectController::class, 'create'])->middleware("permission:create_project");

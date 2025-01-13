@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ Route::post("/sign-up", [AuthController::class, "sign_up"])->name("sign-up");
 
 Route::middleware("auth.web")->group(function () {
     Route::get("/", [DashboardController::class, "dashboard"])->name("dashboard");
+    Route::get("/profile", [ProfileController::class, "profile"])->name("profile");
 
     Route::prefix("/projects")->middleware("permission:read_project")->group(function () {
         Route::get("/", [ProjectController::class, "projects"])->name("projects");

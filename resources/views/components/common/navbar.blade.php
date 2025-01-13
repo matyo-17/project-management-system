@@ -47,6 +47,12 @@
                 
                 <div class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ route('profile') }}" type="button">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="d-md-none">&nbsp;Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link px-3" href="{{ route('logout') }}" type="button">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             <span class="d-md-none">&nbsp;Logout</span>

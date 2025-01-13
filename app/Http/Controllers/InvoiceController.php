@@ -100,6 +100,14 @@ class InvoiceController extends Controller
                         ->where('due_date', "<", Carbon::today());
         }
 
+        if ($filters["invoice_no"] ?? null) {
+            $dt->query->where('invoice_no', $filters['invoice_no']);
+        }
+
+        if ($filters["status"] ?? null) {
+            $dt->query->whereIn('status', $filters['status']);
+        }
+
         $dt->count()->order()->paginate()->result();
 
         $this->result['data'] = $dt->data;

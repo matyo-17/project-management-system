@@ -4,6 +4,23 @@
 
 @section("content")
 <div class="card">
+    <x-accordion.datatable-filter>
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col mb-2">
+                <label class="form-label" for="filter-inv-no">Invoice Number</label>
+                <input type="text" class="form-control" id="filter-inv-no">
+            </div>
+            <div class="col mb-2">
+                <label class="form-label" for="filter-status">Status:</label>
+                <select class="form-select select2" id="filter-status" multiple>
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Unpaid</option>
+                </select>
+            </div>
+        </div>
+        <x-buttons.datatable-filter />
+    </x-accordion.datatable-filter>
+
     <div class="card-body">
         <x-datatable />
     </div>
@@ -19,6 +36,13 @@
             url: '/api/datatable/invoices',
             type: 'post',
             headers: ajaxHeaders,
+            render: function (d) {
+                d.filters = {
+                    'invoice_no': $("#filter-inv-no").val(),
+                    'status': $("#filter-status").val(),
+                };
+                return d;
+            }
         },
         columns: [
             { data: 'id', visible: false },

@@ -90,6 +90,11 @@ class ExpenseController extends Controller
             });
         }
 
+        $filters = $dt->filters;
+        if ($filters["status"] ?? null) {
+            $dt->query->whereIn('status', $filters['status']);
+        }
+
         $dt->count()->order()->paginate()->result();
 
         $this->result['data'] = $dt->data;

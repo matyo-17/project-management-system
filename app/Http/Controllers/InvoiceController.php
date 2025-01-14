@@ -75,6 +75,11 @@ class InvoiceController extends Controller
         $validated = $request->validated();
 
         $invoice = Invoices::find($id);
+        if ($invoice->status !== "unpaid") {
+            $this->result['error'] = "Invoice is already paid.";
+            return response()->json($this->result, 400);
+        }
+
         $invoice->update($validated);
         
         $this->result['status'] = "success";

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section("title", "Roles")
+@section("title", "Profile")
 
 @section('content')
 <div class="row">
@@ -62,7 +62,7 @@
     function save() {
         var formData = formToObject("form-profile");
         if (formData.password !== formData.password_confirmation) {
-            toast("danger", "Passwords do not match");
+            toast("danger", "Error", "Passwords do not match.");
             return;
         }
 
@@ -79,7 +79,7 @@
                 setTimeout(function () { location.reload(); }, 500);
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                toast('danger', 'Failed to update profile', xhr.responseJSON.error);
+                toast('danger', 'Error', xhr.responseJSON.error);
                 actionBtn.prop("disabled", false);
             }
         });

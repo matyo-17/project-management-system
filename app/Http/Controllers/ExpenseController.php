@@ -71,6 +71,11 @@ class ExpenseController extends Controller
         $validated = $request->validated();
 
         $expense = Expenses::find($id);
+        if ($expense->status !== "pending") {
+            $this->result["error"] = "Expense is already approved / rejected.";
+            return response()->json($this->result, 400);
+        }
+
         $expense->update($validated);
         
         $this->result['status'] = "success";

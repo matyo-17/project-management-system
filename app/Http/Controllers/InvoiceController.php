@@ -10,6 +10,7 @@ use App\Models\Invoices;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,8 @@ class InvoiceController extends Controller
             $invoice = Invoices::create($validated);
         } catch (Exception $e) {
             DB::rollBack();
-            $this->result["error"] = $e->getMessage();
+            Cache::delete('inv_cnt_'.Carbon::today()->format("Ymd"));
+            $this->result["error"] = "Error creating invoice.";
             return response()->json($this->result, 500);
         }
         DB::commit();
